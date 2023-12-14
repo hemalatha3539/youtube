@@ -1,17 +1,35 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import Navbar from './navbar';
+import Cardbody from './cardbody';
+import { Outlet, RouterProvider, createBrowserRouter } from 'react-router-dom';
+import Nextvedio from './nextvedio';
+const Container=()=>{
+  return <div className='red'>
+    <Navbar/>
+    <Outlet/>
+  </div>
 
+}
+const ways=createBrowserRouter([
+  {
+    path:"/",
+    element:<Container/>,
+    children:[
+      {
+        path:"/",
+        element:<Cardbody/>
+      },
+      {
+        path:"/vedio/:id",
+        element:<Nextvedio/>
+      }
+    ]
+  }
+  
+
+
+])
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+root.render(<RouterProvider router={ways} />);
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
